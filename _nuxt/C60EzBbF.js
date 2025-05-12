@@ -1,0 +1,1 @@
+import{_ as s,c as o,a as t,o as c}from"./DfsAtwX-.js";const a={},n={class:"p-10 text-center"};function r(l,e){return c(),o("div",n,e[0]||(e[0]=[t("h1",{class:"text-3xl font-bold"},"ポケカ在庫管理ツール",-1),t("p",{class:"text-gray-600 mt-4"},"このページは仮置きです。",-1)]))}const d=s(a,[["render",r]]);export{d as default};
