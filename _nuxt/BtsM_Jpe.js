@@ -1,1 +1,0 @@
-import{_ as o,c as s,a as t,o as a}from"./DfsAtwX-.js";const r={},c={class:"p-10 text-center"};function n(d,e){return a(),s("div",c,e[0]||(e[0]=[t("h1",{class:"text-3xl font-bold"},"WeatherMood",-1),t("p",{class:"text-gray-600 mt-4"},"このページは仮置きです。",-1)]))}const _=o(r,[["render",n]]);export{_ as default};
