@@ -3,6 +3,20 @@
     <div class="max-w-3xl mx-auto text-center">
       <h1 class="text-4xl font-bold">ムカイ / Mukai</h1>
       <p class="text-gray-600 mt-2">Nuxt × TypeScript のフリーランスエンジニア</p>
+      <div class="mt-4 flex justify-center space-x-6">
+        <NuxtLink
+          to="/contact"
+          class="text-blue-500 underline"
+        >
+          お問い合わせ
+        </NuxtLink>
+        <NuxtLink
+          to="/board"
+          class="text-blue-500 underline"
+        >
+          掲示板
+        </NuxtLink>
+      </div>
 
       <div class="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2">
         <NuxtLink
