@@ -1,1 +1,0 @@
-import{_ as s,c as o,a as t,o as a}from"./BYc0VXTT.js";const c={},r={class:"p-8 text-center"};function n(l,e){return a(),o("div",r,e[0]||(e[0]=[t("h1",{class:"text-2xl font-bold"},"マイページ",-1),t("p",{class:"mt-4 text-gray-600"},"このページは作成中です。",-1)]))}const d=s(c,[["render",n]]);export{d as default};
