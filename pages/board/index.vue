@@ -1,47 +1,60 @@
 <template>
-  <div class="flex h-screen">
-    <aside class="w-1/4 bg-gray-800 text-white p-4">
-      <h2 class="text-lg font-bold mb-4">掲示板</h2>
-      <ul>
+  <div class="flex h-screen bg-[#36393f] text-gray-200">
+    <aside class="w-60 bg-[#2f3136] p-4 space-y-2">
+      <h2 class="text-xl font-semibold mb-4">掲示板</h2>
+      <ul class="space-y-1">
         <li
           v-for="post in posts"
           :key="post.id"
           @click="selectPost(post)"
-          :class="[ 'p-2 rounded cursor-pointer hover:bg-gray-700', post.id === activePost?.id ? 'bg-gray-700' : '' ]"
+          :class="[
+            'px-2 py-1 rounded cursor-pointer hover:bg-[#42464d]',
+            post.id === activePost?.id ? 'bg-[#5865F2] text-white' : 'text-gray-300'
+          ]"
         >
-          {{ post.title }}
+          # {{ post.title }}
         </li>
       </ul>
     </aside>
-    <main class="flex-1 p-4">
-      <div class="flex justify-end space-x-4 mb-4">
-        <NuxtLink to="/signup" class="text-blue-500 underline">会員登録</NuxtLink>
-        <NuxtLink to="/login" class="text-blue-500 underline">ログイン</NuxtLink>
-        <NuxtLink to="/mypage" class="text-blue-500 underline">マイページ</NuxtLink>
-      </div>
-      <div v-if="activePost">
-        <h3 class="text-xl font-bold mb-2">{{ activePost.title }}</h3>
-        <ul class="space-y-2 mb-4">
+    <main class="flex-1 flex flex-col bg-[#36393f]">
+      <header class="h-12 px-4 flex items-center shadow">
+        <div class="flex-1">
+          <h3 v-if="activePost" class="font-bold text-lg"># {{ activePost.title }}</h3>
+          <p v-else class="text-gray-400">投稿を選択してください</p>
+        </div>
+        <nav class="flex space-x-4 text-sm text-blue-400">
+          <NuxtLink to="/signup" class="hover:underline">会員登録</NuxtLink>
+          <NuxtLink to="/login" class="hover:underline">ログイン</NuxtLink>
+          <NuxtLink to="/mypage" class="hover:underline">マイページ</NuxtLink>
+        </nav>
+      </header>
+      <section class="flex-1 overflow-y-auto p-4 space-y-4">
+        <ul v-if="activePost" class="space-y-4">
           <li
             v-for="c in comments[activePost.id]"
             :key="c.id"
-            class="p-2 bg-gray-100 rounded"
+            class="flex items-start space-x-2"
           >
-            <p class="text-sm text-gray-700">{{ c.body }}</p>
+            <div class="w-8 h-8 rounded-full bg-gray-500"></div>
+            <p class="text-sm">{{ c.body }}</p>
           </li>
         </ul>
-        <form @submit.prevent="addComment">
-          <input
-            v-model="newComment"
-            class="border rounded w-full p-2 mb-2"
-            placeholder="コメントを入力"
-          />
-          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">
-            投稿
-          </button>
-        </form>
-      </div>
-      <div v-else class="text-gray-500">投稿を選択してください</div>
+        <p v-else class="text-gray-400">左の投稿から選択してください</p>
+      </section>
+      <form
+        v-if="activePost"
+        @submit.prevent="addComment"
+        class="p-4 bg-[#40444b] flex space-x-2"
+      >
+        <input
+          v-model="newComment"
+          class="flex-1 bg-[#202225] text-gray-200 p-2 rounded focus:outline-none"
+          placeholder="コメントを入力"
+        />
+        <button type="submit" class="px-4 py-2 bg-[#5865F2] text-white rounded">
+          投稿
+        </button>
+      </form>
     </main>
   </div>
 </template>
