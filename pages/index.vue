@@ -31,6 +31,12 @@
           <h2 class="text-xl font-semibold">ポケカ在庫管理</h2>
           <p class="text-sm text-gray-500 mt-1">SQLite×TSでローカル管理アプリ</p>
         </NuxtLink>
+
+        <LinkCard
+          to="/pomodoro"
+          title="ポモドーロタイマー"
+          summary="25分作業 / 5分休憩、セット自動進行"
+        />
       </div>
 
       <div class="mt-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-400">
