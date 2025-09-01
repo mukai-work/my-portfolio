@@ -19,17 +19,17 @@ interface CurrentWeather {
 const temperature = ref<number | null>(null);
 const weatherCode = ref<number>(0);
 const isDay = ref(true);
-const locationName = ref('Loading...');
+const locationName = ref('読み込み中...');
 
 const weatherDescription = computed(() => {
   const code = weatherCode.value;
-  if (code === 0) return 'Clear sky';
-  if (code === 1 || code === 2) return 'Partly cloudy';
-  if (code === 3 || code === 45 || code === 48) return 'Cloudy';
-  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return 'Rain';
-  if (code >= 71 && code <= 77) return 'Snow';
-  if (code >= 95) return 'Thunderstorm';
-  return 'Unknown';
+  if (code === 0) return '快晴';
+  if (code === 1 || code === 2) return '晴れ時々曇り';
+  if (code === 3 || code === 45 || code === 48) return '曇り';
+  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return '雨';
+  if (code >= 71 && code <= 77) return '雪';
+  if (code >= 95) return '雷雨';
+  return '不明';
 });
 
 const weatherClass = computed(() => {
@@ -54,11 +54,11 @@ async function loadWeather(lat: number, lon: number, fallbackName?: string) {
     locationName.value = fallbackName;
   } else {
     try {
-      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=en`);
+      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=ja`);
       const geoData = await geoRes.json();
-      locationName.value = geoData.results?.[0]?.name || 'Your location';
+      locationName.value = geoData.results?.[0]?.name || '現在地';
     } catch {
-      locationName.value = 'Your location';
+      locationName.value = '現在地';
     }
   }
 }
@@ -67,10 +67,10 @@ onMounted(() => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       pos => loadWeather(pos.coords.latitude, pos.coords.longitude),
-      () => loadWeather(35.6895, 139.6917, 'Tokyo')
+      () => loadWeather(35.6895, 139.6917, '東京')
     );
   } else {
-    loadWeather(35.6895, 139.6917, 'Tokyo');
+    loadWeather(35.6895, 139.6917, '東京');
   }
 });
 </script>
