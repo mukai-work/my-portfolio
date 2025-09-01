@@ -1,10 +1,25 @@
-# Nuxt Minimal Starter
+# ポートフォリオ
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+このリポジトリは Nuxt 3 で構築した個人ポートフォリオサイトです。
 
-## Setup
+## 技術スタック
 
-Make sure to install dependencies:
+- **Nuxt 3 / Vue 3**: モダンなフロントエンドフレームワーク。高速な表示と柔軟なルーティングを実現します。
+- **TypeScript**: 型定義によりバグを事前に防ぎ、保守性を高めています。
+- **better-sqlite3**: 軽量な SQLite データベースを使い、カード情報や問い合わせ内容を手軽に管理します。
+- **サーバー API**: Nuxt のサーバー機能を利用し、ログイン・問い合わせなどの処理を行います。
+- **Resend / Google reCAPTCHA**: お問い合わせフォームのメール送信とスパム対策に利用しています。
+
+## こだわり・気を付けている点
+
+- フォーム入力のチェックを徹底し、不正なデータやスパムを防ぎます。
+- SQLite を採用することで、セットアップが簡単で導入ハードルが低くなるようにしています。
+- 認証情報は HTTP Only クッキーに保存し、ブラウザから直接参照できないようにしています。
+- コードは TypeScript で書かれており、将来的な機能追加も見通し良く進められます。
+
+## セットアップ
+
+依存関係をインストールします。
 
 ```bash
 # npm
@@ -20,9 +35,9 @@ yarn install
 bun install
 ```
 
-## Development Server
+## 開発サーバー
 
-Start the development server on `http://localhost:3000`:
+`http://localhost:3000` で開発サーバーを起動します。
 
 ```bash
 # npm
@@ -38,9 +53,9 @@ yarn dev
 bun run dev
 ```
 
-## Production
+## 本番ビルド
 
-Build the application for production:
+アプリケーションを本番用にビルドします。
 
 ```bash
 # npm
@@ -56,7 +71,7 @@ yarn build
 bun run build
 ```
 
-Locally preview production build:
+ローカルでビルド結果を確認するには:
 
 ```bash
 # npm
@@ -72,4 +87,5 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Nuxt のより詳しいデプロイ方法は [公式ドキュメント](https://nuxt.com/docs/getting-started/deployment) を参照してください。
+
