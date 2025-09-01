@@ -26,3 +26,11 @@ cards.db
 .env
 .env.*
 !.env.example
+
+# binary
+*.png
+*.jpg
+*.pdf
+*.mp4
+*.zip
+*.woff
