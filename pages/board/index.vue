@@ -74,12 +74,6 @@ const comments = ref<Comment[]>([])
 const activePost = ref<Post | null>(null)
 const newComment = ref('')
 
-
-const posts = ref<Post[]>([])
-const comments = ref<Comment[]>([])
-const activePost = ref<Post | null>(null)
-const newComment = ref('')
-
 async function fetchPosts() {
   posts.value = await $fetch<Post[]>('/api/board/posts')
 }
