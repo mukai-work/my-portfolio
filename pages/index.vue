@@ -32,6 +32,12 @@
         </NuxtLink>
 
         <LinkCard
+          to="/boards"
+          title="リアルタイムカンバン"
+          summary="共同編集できるToDoボード"
+        />
+
+        <LinkCard
           to="/pomodoro"
           title="ポモドーロタイマー"
           summary="25分作業 / 5分休憩、セット自動進行"
