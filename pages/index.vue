@@ -2,7 +2,6 @@
   <main class="min-h-screen bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto">
       <div class="text-center">
-        <img src="/avatar.png" alt="Avatar" class="mx-auto mb-4 w-24 h-24" />
         <h1 class="text-4xl font-bold text-orange-600">Kengo Mukai</h1>
         <p class="text-gray-700 mt-2">NuxtとTypeScriptで心地よいWeb体験を。</p>
       </div>
