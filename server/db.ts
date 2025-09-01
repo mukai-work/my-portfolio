@@ -12,7 +12,19 @@ db.exec(`
     rarity TEXT,
     quantity INTEGER DEFAULT 0,
     price REAL DEFAULT 0
-  )
+  );
+
+  CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    postId INTEGER NOT NULL,
+    body TEXT NOT NULL,
+    FOREIGN KEY (postId) REFERENCES posts(id) ON DELETE CASCADE
+  );
 `);
 
 export default db;

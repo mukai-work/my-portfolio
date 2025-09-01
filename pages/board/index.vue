@@ -37,7 +37,7 @@
       <section class="flex-1 overflow-y-auto p-4 space-y-4">
         <ul v-if="activePost" class="space-y-4">
           <li
-            v-for="c in comments[activePost.id]"
+            v-for="c in comments"
             :key="c.id"
             class="flex items-start space-x-2"
           >
@@ -66,35 +66,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import type { Post, Comment } from '~/types/board'
 
-interface Post { id: number; title: string }
-interface Comment { id: number; postId: number; body: string }
-
-const posts = useState<Post[]>('posts', () => [
-  { id: 1, title: '最初の投稿' },
-  { id: 2, title: 'Nuxt 3 について語ろう' }
-])
-
-const comments = useState<Record<number, Comment[]>>('comments', () => ({
-  1: [{ id: 1, postId: 1, body: 'こんにちは！' }],
-  2: []
-}))
-
+const posts = ref<Post[]>([])
+const comments = ref<Comment[]>([])
 const activePost = ref<Post | null>(null)
 const newComment = ref('')
 
-function selectPost(post: Post) {
-  activePost.value = post
+
+const posts = ref<Post[]>([])
+const comments = ref<Comment[]>([])
+const activePost = ref<Post | null>(null)
+const newComment = ref('')
+
+async function fetchPosts() {
+  posts.value = await $fetch<Post[]>('/api/board/posts')
 }
 
-function addComment() {
+async function selectPost(post: Post) {
+  activePost.value = post
+  comments.value = await $fetch<Comment[]>(`/api/board/posts/${post.id}/comments`)
+}
+
+async function addComment() {
   if (!activePost.value || !newComment.value.trim()) return
   const postId = activePost.value.id
-  const list = comments.value[postId] || (comments.value[postId] = [])
-  list.push({ id: Date.now(), postId, body: newComment.value })
+  await $fetch(`/api/board/posts/${postId}/comments`, {
+    method: 'POST',
+    body: { body: newComment.value }
+  })
+  comments.value = await $fetch<Comment[]>(`/api/board/posts/${postId}/comments`)
   newComment.value = ''
 }
+
+onMounted(fetchPosts)
 </script>
 
 <style scoped>

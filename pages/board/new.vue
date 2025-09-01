@@ -28,25 +28,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-interface Post { id: number; title: string }
-interface Comment { id: number; postId: number; body: string }
-
-const posts = useState<Post[]>('posts', () => [])
-const comments = useState<Record<number, Comment[]>>('comments', () => ({}))
-
 const title = ref('')
 const body = ref('')
 
 const router = useRouter()
 
-function createPost() {
+async function createPost() {
   if (!title.value.trim()) return
-  const id = Date.now()
-  posts.value.push({ id, title: title.value })
-  comments.value[id] = []
-  if (body.value.trim()) {
-    comments.value[id].push({ id: Date.now(), postId: id, body: body.value })
-  }
+  await $fetch('/api/board/posts', {
+    method: 'POST',
+    body: { title: title.value, body: body.value }
+  })
   router.push('/board')
 }
 </script>
