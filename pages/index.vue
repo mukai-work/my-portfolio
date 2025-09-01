@@ -2,14 +2,14 @@
   <main class="min-h-screen bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto">
       <div class="text-center">
-        <h1 class="text-4xl font-bold">ムカイ / Mukai</h1>
-        <p class="text-gray-600 mt-2">Nuxt × TypeScript のフリーランスエンジニア</p>
+        <h1 class="text-4xl font-bold text-indigo-600">Kengo Mukai</h1>
+        <p class="text-gray-700 mt-2">NuxtとTypeScriptで心地よいWeb体験を。</p>
       </div>
 
       <div class="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <NuxtLink
           to="/board"
-          class="bg-white shadow-md p-6 rounded-xl hover:-translate-y-1 hover:shadow-xl transition transform"
+          class="bg-white border-t-4 border-indigo-400 shadow-md p-6 rounded-xl hover:bg-indigo-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
         >
           <h2 class="text-xl font-semibold">掲示板</h2>
           <p class="text-sm text-gray-500 mt-1">コミュニティで意見交換</p>
@@ -17,7 +17,7 @@
 
         <NuxtLink
           to="/projects/weathermood"
-          class="bg-white shadow-md p-6 rounded-xl hover:-translate-y-1 hover:shadow-xl transition transform"
+          class="bg-white border-t-4 border-indigo-400 shadow-md p-6 rounded-xl hover:bg-indigo-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
         >
           <h2 class="text-xl font-semibold">WeatherMood</h2>
           <p class="text-sm text-gray-500 mt-1">天気×気分UIで魅せるTypeScript作品</p>
@@ -25,15 +25,15 @@
 
         <NuxtLink
           to="/projects/pokemon"
-          class="bg-white shadow-md p-6 rounded-xl hover:-translate-y-1 hover:shadow-xl transition transform"
+          class="bg-white border-t-4 border-indigo-400 shadow-md p-6 rounded-xl hover:bg-indigo-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
         >
           <h2 class="text-xl font-semibold">ポケカ在庫管理</h2>
           <p class="text-sm text-gray-500 mt-1">SQLite×TSでローカル管理アプリ</p>
         </NuxtLink>
       </div>
 
-      <div class="mt-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-2xl font-bold mb-4 text-center">お問い合わせ</h2>
+      <div class="mt-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md border-t-4 border-indigo-400">
+        <h2 class="text-2xl font-bold mb-4 text-center text-indigo-600">お問い合わせ</h2>
         <form @submit.prevent="submit" class="space-y-4">
           <div>
             <label class="block text-sm font-medium mb-1">名前</label>
