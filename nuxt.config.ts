@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
   target: 'static',
+  modules: ['@vite-pwa/nuxt'],
   app: {
     baseURL: '/my-portfolio/',
     head: {
@@ -16,6 +17,29 @@ export default defineNuxtConfig({
     recaptchaSecret: process.env.RECAPTCHA_SECRET,
     public: {
       recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
+    }
+  }
+  ,
+  pwa: {
+    manifest: {
+      name: 'Realtime Kanban',
+      short_name: 'Kanban',
+      theme_color: '#f97316',
+      background_color: '#ffffff',
+      display: 'standalone',
+      start_url: '/my-portfolio/',
+      icons: [
+        {
+          src: 'pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
     }
   }
 })
