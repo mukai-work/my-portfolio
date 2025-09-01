@@ -89,3 +89,13 @@ bun run preview
 
 Nuxt のより詳しいデプロイ方法は [公式ドキュメント](https://nuxt.com/docs/getting-started/deployment) を参照してください。
 
+## テスト
+
+単体テストを実行するには、次のコマンドを実行します。
+
+```bash
+npm test
+```
+
+Node.js の組み込みテストランナーを使用しており、追加の依存関係は不要です。
+
