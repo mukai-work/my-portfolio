@@ -47,6 +47,8 @@
             <label class="block text-sm font-medium mb-1">メッセージ</label>
             <textarea v-model="form.message" class="w-full border rounded p-2" rows="4" required></textarea>
           </div>
+          <!-- Honeypot field for bots -->
+          <input v-model="form.botField" type="text" class="hidden" tabindex="-1" autocomplete="off" />
           <div class="text-center">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" :disabled="sent">
               送信
@@ -63,11 +65,19 @@
 import { reactive, ref } from 'vue';
 import type { ContactMessage } from '~/types/contact';
 
-const form = reactive<ContactMessage>({ name: '', email: '', message: '' });
+const config = useRuntimeConfig();
+useHead({
+  script: [
+    { src: `https://www.google.com/recaptcha/api.js?render=${config.public.recaptchaSiteKey}`, defer: true },
+  ],
+});
+
+const form = reactive<ContactMessage>({ name: '', email: '', message: '', botField: '' });
 const sent = ref(false);
 
 const submit = async () => {
-  await $fetch('/api/contact', { method: 'POST', body: form });
+  const token = await (window as any).grecaptcha.execute(config.public.recaptchaSiteKey, { action: 'submit' });
+  await $fetch('/api/contact', { method: 'POST', body: { ...form, token } });
   sent.value = true;
 };
 </script>
