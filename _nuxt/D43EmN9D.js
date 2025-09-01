@@ -1,1 +1,0 @@
-import{_ as o}from"./DlAUqK2U.js";import{c as s,a as e,o as r}from"./i_oexzQr.js";const c={},a={class:"p-10 text-center"};function n(l,t){return r(),s("div",a,t[0]||(t[0]=[e("h1",{class:"text-3xl font-bold"},"ポケカ在庫管理ツール",-1),e("p",{class:"text-gray-600 mt-4"},"このページは仮置きです。",-1)]))}const m=o(c,[["render",n]]);export{m as default};
