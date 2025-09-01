@@ -2,7 +2,12 @@ export default defineNuxtConfig({
   ssr: true,
   target: 'static',
   app: {
-    baseURL: '/my-portfolio/'
+    baseURL: '/my-portfolio/',
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio/favicon.ico' }
+      ]
+    }
   },
   runtimeConfig: {
     resendApiKey: process.env.RESEND_API_KEY,
