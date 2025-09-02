@@ -8,13 +8,13 @@
         class="w-64 bg-gray-100 p-2 rounded"
       >
         <h2 class="font-bold mb-2">{{ column.name }}</h2>
-        <ul @dragover.prevent @drop="onDrop(column.id)">
+        <ul @dragover.prevent @drop.prevent="onDrop(column.id)">
           <li
             v-for="card in column.cards"
             :key="card.id"
             class="bg-white p-2 mb-2 rounded shadow"
             draggable="true"
-            @dragstart="onDragStart(column.id, card.id)"
+            @dragstart="onDragStart(column.id, card.id, $event)"
           >
             {{ card.title }}
           </li>
@@ -42,8 +42,9 @@ const updateBoard = async () => {
   });
 };
 
-const onDragStart = (columnId: string, cardId: string) => {
+const onDragStart = (columnId: string, cardId: string, event: DragEvent) => {
   dragging.value = { columnId, cardId };
+  event.dataTransfer?.setData('text/plain', cardId);
 };
 
 const onDrop = (targetColumnId: string) => {
