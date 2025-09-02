@@ -42,6 +42,12 @@
           title="ポモドーロタイマー"
           summary="25分作業 / 5分休憩、セット自動進行"
         />
+
+        <LinkCard
+          to="/sudoku"
+          title="ナンプレ"
+          summary="9x9数独ゲーム"
+        />
       </div>
 
       <div class="mt-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-400">
