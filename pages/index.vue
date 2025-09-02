@@ -9,26 +9,35 @@
       <div class="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <NuxtLink
           to="/board"
-          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
+          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform flex justify-between items-center"
         >
-          <h2 class="text-xl font-semibold">掲示板</h2>
-          <p class="text-sm text-gray-500 mt-1">コミュニティで意見交換</p>
+          <div>
+            <h2 class="text-xl font-semibold">掲示板</h2>
+            <p class="text-sm text-gray-500 mt-1">コミュニティで意見交換</p>
+          </div>
+          <span aria-hidden="true" class="text-orange-400 text-2xl">→</span>
         </NuxtLink>
 
         <NuxtLink
           to="/projects/weathermood"
-          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
+          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform flex justify-between items-center"
         >
-          <h2 class="text-xl font-semibold">WeatherMood</h2>
-          <p class="text-sm text-gray-500 mt-1">天気×気分UIで魅せるTypeScript作品</p>
+          <div>
+            <h2 class="text-xl font-semibold">WeatherMood</h2>
+            <p class="text-sm text-gray-500 mt-1">天気×気分UIで魅せるTypeScript作品</p>
+          </div>
+          <span aria-hidden="true" class="text-orange-400 text-2xl">→</span>
         </NuxtLink>
 
         <NuxtLink
           to="/projects/pokemon"
-          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform"
+          class="bg-white border-t-4 border-orange-400 shadow-md p-6 rounded-xl hover:bg-orange-50 hover:-translate-y-1 hover:shadow-xl transition-transform transform flex justify-between items-center"
         >
-          <h2 class="text-xl font-semibold">ポケカ在庫管理</h2>
-          <p class="text-sm text-gray-500 mt-1">SQLite×TSでローカル管理アプリ</p>
+          <div>
+            <h2 class="text-xl font-semibold">ポケカ在庫管理</h2>
+            <p class="text-sm text-gray-500 mt-1">SQLite×TSでローカル管理アプリ</p>
+          </div>
+          <span aria-hidden="true" class="text-orange-400 text-2xl">→</span>
         </NuxtLink>
 
         <LinkCard
