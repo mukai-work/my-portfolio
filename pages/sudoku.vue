@@ -1,14 +1,17 @@
 <template>
   <div class="min-h-screen p-4 flex flex-col items-center justify-center gap-4">
     <div class="flex flex-wrap gap-2 items-center justify-center">
-      <select v-model="difficulty" class="border p-1">
-        <option value="easy">やさしい</option>
-        <option value="normal">ふつう</option>
-        <option value="hard">むずかしい</option>
-        <option value="expert">エキスパート</option>
-        <option value="oni">鬼</option>
-      </select>
-      <button class="border p-1" @click="newPuzzle">新規作成</button>
+      <div class="flex flex-wrap gap-2">
+        <button
+          v-for="d in difficulties"
+          :key="d.value"
+          class="px-2 py-1 border rounded"
+          :class="d.value === difficulty ? 'bg-blue-500 text-white' : 'bg-white'"
+          @click="difficulty = d.value"
+        >
+          {{ d.label }}
+        </button>
+      </div>
       <label class="flex items-center gap-1">
         <input type="checkbox" v-model="showErrors" /> エラーハイライト
       </label>
@@ -19,7 +22,6 @@
       </div>
     </div>
     <SudokuBoard
-      ref="board"
       :difficulty="difficulty"
       :show-errors="showErrors"
       @new="onNew"
@@ -35,14 +37,16 @@ import type { Difficulty, Puzzle } from '~/core/types';
 const difficulty = ref<Difficulty>('easy');
 const showErrors = ref(true);
 const seed = ref('');
-const board = ref<InstanceType<typeof SudokuBoard> | null>(null);
+const difficulties = [
+  { value: 'easy', label: 'やさしい' },
+  { value: 'normal', label: 'ふつう' },
+  { value: 'hard', label: 'むずかしい' },
+  { value: 'expert', label: 'エキスパート' },
+  { value: 'oni', label: '鬼' },
+];
 
 function onNew(p: Puzzle) {
   seed.value = p.seed;
-}
-
-function newPuzzle() {
-  board.value?.newGame();
 }
 
 function toggleTheme() {
