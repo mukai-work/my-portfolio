@@ -126,28 +126,34 @@ onMounted(() => newGame());
             v-for="(cell, c) in row"
             :key="c"
             @click="select(r, c)"
-            :class="[
-              'border-gray-400 flex items-center justify-center select-none',
-              'text-lg',
-              r % 3 === 0 ? 'border-t-2' : 'border-t',
-              c % 3 === 0 ? 'border-l-2' : 'border-l',
-              r === 8 ? 'border-b-2' : '',
-              c === 8 ? 'border-r-2' : '',
-              selected?.r === r && selected?.c === c
-                ? 'bg-yellow-200'
-                : selected && (selected.r === r || selected.c === c)
-                  ? 'bg-yellow-100'
+              :class="[
+                'flex items-center justify-center select-none text-lg',
+                ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
+                  ? 'bg-gray-50'
+                  : 'bg-white'),
+                r % 3 === 0
+                  ? 'border-t-2 border-t-gray-600'
+                  : 'border-t border-t-gray-300',
+                c % 3 === 0
+                  ? 'border-l-2 border-l-gray-600'
+                  : 'border-l border-l-gray-300',
+                r === 8 ? 'border-b-2 border-b-gray-600' : '',
+                c === 8 ? 'border-r-2 border-r-gray-600' : '',
+                selected?.r === r && selected?.c === c
+                  ? 'bg-yellow-200'
+                  : selected && (selected.r === r || selected.c === c)
+                    ? 'bg-yellow-100'
+                    : '',
+                givens[r][c] ? 'font-bold' : '',
+                props.showErrors && conflicts[r][c] ? 'bg-red-200' : '',
+                selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
+                  ? 'bg-blue-100'
                   : '',
-              givens[r][c] ? 'font-bold' : '',
-              props.showErrors && conflicts[r][c] ? 'bg-red-200' : '',
-              selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
-                ? 'bg-blue-100'
-                : '',
-            ]"
-          >
-            {{ cell || '' }}
-          </button>
-        </template>
+              ]"
+            >
+              {{ cell || '' }}
+            </button>
+          </template>
       </div>
     </div>
     <div class="mt-2 grid grid-cols-12 gap-2" :style="{ width: 'min(92vw,560px)' }">
