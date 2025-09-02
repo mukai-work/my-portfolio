@@ -127,10 +127,10 @@ onMounted(() => newGame());
             :key="c"
             @click="select(r, c)"
             :class="[
-              'border border-gray-400 flex items-center justify-center select-none',
+              'border-gray-400 flex items-center justify-center select-none',
               'text-lg',
-              r % 3 === 0 ? 'border-t-2' : '',
-              c % 3 === 0 ? 'border-l-2' : '',
+              r % 3 === 0 ? 'border-t-2' : 'border-t',
+              c % 3 === 0 ? 'border-l-2' : 'border-l',
               r === 8 ? 'border-b-2' : '',
               c === 8 ? 'border-r-2' : '',
               selected?.r === r && selected?.c === c
@@ -160,8 +160,8 @@ onMounted(() => newGame());
         {{ n }}
       </button>
       <button class="p-2 bg-white border rounded" @click="erase">消</button>
-      <button class="p-2 bg-white border rounded" @click="undo">Undo</button>
-      <button class="p-2 bg-white border rounded" @click="redo">Redo</button>
+      <button class="p-2 bg-white border rounded" @click="undo">戻す</button>
+      <button class="p-2 bg-white border rounded" @click="redo">やり直し</button>
     </div>
   </div>
 </template>
