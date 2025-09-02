@@ -1,0 +1,73 @@
+{
+  "$schema": "https://example.com/schema/code-style.json",
+  "version": "1.0.0",
+  "sources": [
+    "Google TypeScript Style Guide",
+    "Mercari TypeScript Style Guide"
+  ],
+  "general": {
+    "indentation": "2 spaces",
+    "lineLength": 100,
+    "quotes": "single",
+    "semicolon": true
+  },
+  "typescript": {
+    "strict": true,
+    "naming": {
+      "interface": "PascalCase",
+      "typeAlias": "PascalCase",
+      "enum": "PascalCase",
+      "class": "PascalCase",
+      "function": "lowerCamelCase",
+      "variable": "lowerCamelCase",
+      "constant": "UPPER_CASE"
+    },
+    "imports": {
+      "order": ["node", "external", "internal", "parent", "sibling", "index"],
+      "extensions": false,
+      "typeOnlyImports": true,
+      "noDefaultExport": true
+    },
+    "types": {
+      "preferInterface": true,
+      "noAny": true,
+      "noNamespace": true
+    }
+  },
+  "vue": {
+    "singleFileComponent": {
+      "script": {
+        "lang": "ts",
+        "setup": true
+      },
+      "style": {
+        "scoped": true,
+        "lang": "scss"
+      }
+    },
+    "componentNaming": "PascalCase",
+    "propValidation": "defineProps with explicit types",
+    "emitsValidation": "defineEmits with typed payload",
+    "templates": {
+      "order": ["script", "template", "style"],
+      "selfClosing": true
+    }
+  },
+  "nuxt": {
+    "directoryStructure": "default",
+    "useAsyncData": true,
+    "composables": {
+      "directory": "composables/",
+      "prefix": "use"
+    },
+    "pages": {
+      "routeNameCasing": "kebab-case",
+      "dynamicRoutes": {
+        "syntax": "[id]"
+      }
+    },
+    "imports": {
+      "auto": true
+    }
+  }
+}
