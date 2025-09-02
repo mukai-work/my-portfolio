@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
 export const usePomodoroTimer = () => {
   const workMinutes = ref(25);
@@ -27,6 +27,18 @@ export const usePomodoroTimer = () => {
   const progress = computed(() =>
     ((phaseDuration.value - remainingMs.value) / phaseDuration.value) * 100
   );
+
+  watch(workMinutes, (v) => {
+    if (!lockSettings.value && phase.value === 'work') {
+      remainingMs.value = v * 60 * 1000;
+    }
+  });
+
+  watch(breakMinutes, (v) => {
+    if (!lockSettings.value && phase.value === 'break') {
+      remainingMs.value = v * 60 * 1000;
+    }
+  });
 
   function tick() {
     if (!isRunning.value || targetAt === null) return;
@@ -60,15 +72,6 @@ export const usePomodoroTimer = () => {
     isRunning.value = true;
     isPaused.value = false;
     tick();
-  }
-
-  function stop() {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-    isRunning.value = false;
-    isPaused.value = false;
-    targetAt = null;
-    remainingMs.value = phaseDuration.value;
   }
 
   function reset() {
@@ -106,9 +109,6 @@ export const usePomodoroTimer = () => {
       if (!isRunning.value && !isPaused.value) start();
       else if (isRunning.value) pause();
       else if (isPaused.value) resume();
-    } else if (e.key === 's' || e.key === 'S') {
-      e.preventDefault();
-      stop();
     } else if (e.key === 'r' || e.key === 'R') {
       e.preventDefault();
       reset();
@@ -148,7 +148,6 @@ export const usePomodoroTimer = () => {
     start,
     pause,
     resume,
-    stop,
     reset,
   };
 };
