@@ -1,8 +1,41 @@
 <template>
   <main class="min-h-screen p-4 bg-gray-100">
-    <header class="flex justify-between items-center mb-8">
+    <header class="relative flex justify-between items-center mb-8">
       <h1 class="text-2xl font-bold">ポモドーロタイマー</h1>
-      <span class="text-gray-500" aria-hidden="true">⚙️</span>
+      <div class="relative">
+        <button
+          @click="showSettings = !showSettings"
+          aria-label="Settings"
+          class="text-gray-500"
+        >
+          ⚙️
+        </button>
+        <div
+          v-if="showSettings"
+          class="absolute right-0 mt-2 p-4 bg-white border rounded shadow-md space-y-2"
+        >
+          <label class="block text-sm">
+            作業時間
+            <input
+              type="number"
+              v-model.number="workMinutes"
+              :disabled="lockSettings"
+              min="1"
+              class="border p-1 rounded w-20 ml-2"
+            />
+          </label>
+          <label class="block text-sm">
+            休憩時間
+            <input
+              type="number"
+              v-model.number="breakMinutes"
+              :disabled="lockSettings"
+              min="1"
+              class="border p-1 rounded w-20 ml-2"
+            />
+          </label>
+        </div>
+      </div>
     </header>
 
     <section class="text-center space-y-4">
@@ -24,35 +57,11 @@
 
     <section class="flex justify-center space-x-4 mt-8">
       <button
-        v-if="!isRunning && !isPaused"
-        @click="start"
-        aria-label="Start"
+        @click="handleStartPause"
+        aria-label="Start or Pause"
         class="px-4 py-2 bg-orange-500 text-white rounded"
       >
-        Start
-      </button>
-      <button
-        v-if="isRunning"
-        @click="pause"
-        aria-label="Pause"
-        class="px-4 py-2 bg-orange-500 text-white rounded"
-      >
-        Pause
-      </button>
-      <button
-        v-if="isPaused"
-        @click="resume"
-        aria-label="Resume"
-        class="px-4 py-2 bg-orange-500 text-white rounded"
-      >
-        Resume
-      </button>
-      <button
-        @click="stop"
-        aria-label="Stop"
-        class="px-4 py-2 bg-gray-300 rounded"
-      >
-        Stop
+        {{ isRunning ? 'Pause' : 'Start' }}
       </button>
       <button
         @click="reset"
@@ -78,7 +87,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const {
+  workMinutes,
+  breakMinutes,
   totalSets,
   currentSet,
   phase,
@@ -92,7 +105,14 @@ const {
   start,
   pause,
   resume,
-  stop,
   reset,
 } = usePomodoroTimer();
+
+const showSettings = ref(false);
+
+function handleStartPause() {
+  if (!isRunning.value && !isPaused.value) start();
+  else if (isRunning.value) pause();
+  else if (isPaused.value) resume();
+}
 </script>
