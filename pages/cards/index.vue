@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { Card } from '~/types/card';
 
-const { data: cards, refresh } = await useFetch<Card[]>('/api/cards');
+const q = ref('');
+const { data: cards, refresh } = await useFetch<Card[]>('/api/cards', { query: { q } });
+const totalQuantity = computed(() => cards.value?.reduce((sum, c) => sum + c.quantity, 0) ?? 0);
+const totalValue = computed(() => cards.value?.reduce((sum, c) => sum + c.quantity * c.price, 0) ?? 0);
 
 async function remove(id: number) {
   await $fetch(`/api/cards/${id}`, { method: 'DELETE' });
@@ -12,8 +15,12 @@ async function remove(id: number) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl mb-4">Card Inventory</h1>
-    <NuxtLink to="/cards/new" class="text-blue-600 underline">Register Card</NuxtLink>
-    <table class="w-full mt-4 border-collapse">
+    <div class="flex items-center gap-4 mb-2">
+      <NuxtLink to="/cards/new" class="text-blue-600 underline">Register Card</NuxtLink>
+      <input v-model="q" placeholder="Search by name" class="border p-1 flex-1" />
+    </div>
+    <p class="mb-2">Total Cards: {{ totalQuantity }} / Total Value: {{ totalValue }}</p>
+    <table class="w-full mt-2 border-collapse">
       <thead>
         <tr>
           <th class="border p-2">Name</th>
