@@ -116,58 +116,65 @@ onMounted(() => newGame());
     @keydown.capture="onKey"
     tabindex="0"
   >
-    <div
-      class="relative"
-      :style="{ width: 'min(92vw,560px)', height: 'min(92vw,560px)' }"
-    >
-      <div class="grid grid-cols-9 grid-rows-9 w-full h-full">
-        <template v-for="(row, r) in grid" :key="r">
-          <button
-            v-for="(cell, c) in row"
-            :key="c"
-            @click="select(r, c)"
-              :class="[
-                'flex items-center justify-center select-none text-lg',
-                ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
-                  ? 'bg-gray-50'
-                  : 'bg-white'),
-                r % 3 === 0
-                  ? 'border-t-2 border-t-gray-600'
-                  : 'border-t border-t-gray-300',
-                c % 3 === 0
-                  ? 'border-l-2 border-l-gray-600'
-                  : 'border-l border-l-gray-300',
-                r === 8 ? 'border-b-2 border-b-gray-600' : '',
-                c === 8 ? 'border-r-2 border-r-gray-600' : '',
-                selected?.r === r && selected?.c === c
-                  ? 'bg-yellow-200'
-                  : selected && (selected.r === r || selected.c === c)
-                    ? 'bg-yellow-100'
-                    : '',
-                givens[r][c] ? 'font-bold' : '',
-                props.showErrors && conflicts[r][c] ? 'bg-red-200' : '',
-                selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
-                  ? 'bg-blue-100'
-                  : '',
-              ]"
-            >
-              {{ cell || '' }}
-            </button>
-          </template>
-      </div>
-    </div>
-    <div class="mt-2 grid grid-cols-12 gap-2" :style="{ width: 'min(92vw,560px)' }">
-      <button
-        v-for="n in 9"
-        :key="n"
-        class="p-2 bg-white border rounded"
-        @click="input(n)"
+    <div class="flex gap-4">
+      <div
+        class="relative"
+        :style="{ width: 'min(92vw,560px)', height: 'min(92vw,560px)' }"
       >
-        {{ n }}
-      </button>
-      <button class="p-2 bg-white border rounded" @click="erase">消</button>
-      <button class="p-2 bg-white border rounded" @click="undo">戻す</button>
-      <button class="p-2 bg-white border rounded" @click="redo">やり直し</button>
+        <div class="grid grid-cols-9 grid-rows-9 w-full h-full">
+          <template v-for="(row, r) in grid" :key="r">
+            <button
+              v-for="(cell, c) in row"
+              :key="c"
+              @click="select(r, c)"
+                :class="[
+                  'flex items-center justify-center select-none text-lg',
+                  ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
+                    ? 'bg-gray-50'
+                    : 'bg-white'),
+                  r % 3 === 0
+                    ? 'border-t-2 border-t-gray-600'
+                    : 'border-t border-t-gray-300',
+                  c % 3 === 0
+                    ? 'border-l-2 border-l-gray-600'
+                    : 'border-l border-l-gray-300',
+                  r === 8 ? 'border-b-2 border-b-gray-600' : '',
+                  c === 8 ? 'border-r-2 border-r-gray-600' : '',
+                  selected?.r === r && selected?.c === c
+                    ? 'bg-yellow-200'
+                    : selected && (selected.r === r || selected.c === c)
+                      ? 'bg-yellow-100'
+                      : '',
+                  givens[r][c] ? 'font-bold' : '',
+                  props.showErrors && conflicts[r][c] ? 'bg-red-200' : '',
+                  selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
+                    ? 'bg-blue-100'
+                    : '',
+                ]"
+              >
+                {{ cell || '' }}
+              </button>
+            </template>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-col gap-2">
+          <button class="p-2 bg-white border rounded w-12 h-12" @click="erase">消</button>
+          <button class="p-2 bg-white border rounded w-12 h-12" @click="undo">戻す</button>
+          <button class="p-2 bg-white border rounded w-12 h-12" @click="redo">やり直し</button>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <button
+            v-for="n in 9"
+            :key="n"
+            class="p-2 bg-white border rounded w-12 h-12 flex items-center justify-center"
+            @click="input(n)"
+          >
+            {{ n }}
+          </button>
+        </div>
+        <button class="p-2 bg-blue-500 text-white border rounded w-full" @click="newGame">新規ゲーム</button>
+      </div>
     </div>
   </div>
 </template>
