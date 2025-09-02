@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4">
-    <div class="flex flex-wrap gap-2 items-center mb-4">
+  <div class="min-h-screen p-4 flex flex-col items-center justify-center gap-4">
+    <div class="flex flex-wrap gap-2 items-center justify-center">
       <select v-model="difficulty" class="border p-1">
         <option value="easy">やさしい</option>
         <option value="normal">ふつう</option>
@@ -13,7 +13,7 @@
         <input type="checkbox" v-model="showErrors" /> エラーハイライト
       </label>
       <button class="border p-1" @click="toggleTheme">テーマ切替</button>
-      <div class="ml-auto text-sm flex items-center gap-1">
+      <div class="text-sm flex items-center gap-1">
         Seed: {{ seed }}
         <button class="border px-1" @click="copySeed">コピー</button>
       </div>
