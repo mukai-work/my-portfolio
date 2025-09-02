@@ -133,13 +133,13 @@ onMounted(() => newGame());
                     ? 'bg-gray-50'
                     : 'bg-white'),
                   r % 3 === 0
-                    ? 'border-t-2 border-t-gray-600'
-                    : 'border-t border-t-gray-300',
+                    ? 'border-t-4 border-t-gray-600'
+                    : 'border-t border-t-gray-400',
                   c % 3 === 0
-                    ? 'border-l-2 border-l-gray-600'
-                    : 'border-l border-l-gray-300',
-                  r === 8 ? 'border-b-2 border-b-gray-600' : '',
-                  c === 8 ? 'border-r-2 border-r-gray-600' : '',
+                    ? 'border-l-4 border-l-gray-600'
+                    : 'border-l border-l-gray-400',
+                  r === 8 ? 'border-b-4 border-b-gray-600' : '',
+                  c === 8 ? 'border-r-4 border-r-gray-600' : '',
                   selected?.r === r && selected?.c === c
                     ? 'bg-yellow-200'
                     : selected && (selected.r === r || selected.c === c)
