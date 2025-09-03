@@ -130,25 +130,25 @@ onMounted(() => newGame());
                 :class="[
                   'flex items-center justify-center select-none text-lg',
                   ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
-                    ? 'bg-gray-50'
-                    : 'bg-white'),
+                    ? 'bg-[var(--surface-2)]'
+                    : 'bg-[var(--surface)]'),
                   r % 3 === 0
-                    ? 'border-t-4 border-t-gray-600'
-                    : 'border-t border-t-gray-400',
+                    ? 'border-t-4 border-t-[var(--fg)]'
+                    : 'border-t border-t-[var(--border)]',
                   c % 3 === 0
-                    ? 'border-l-4 border-l-gray-600'
-                    : 'border-l border-l-gray-400',
-                  r === 8 ? 'border-b-4 border-b-gray-600' : '',
-                  c === 8 ? 'border-r-4 border-r-gray-600' : '',
+                    ? 'border-l-4 border-l-[var(--fg)]'
+                    : 'border-l border-l-[var(--border)]',
+                  r === 8 ? 'border-b-4 border-b-[var(--fg)]' : '',
+                  c === 8 ? 'border-r-4 border-r-[var(--fg)]' : '',
                   selected?.r === r && selected?.c === c
-                    ? 'bg-yellow-200'
+                    ? 'bg-yellow-200 dark:bg-yellow-600'
                     : selected && (selected.r === r || selected.c === c)
-                      ? 'bg-yellow-100'
+                      ? 'bg-yellow-100 dark:bg-yellow-700'
                       : '',
                   givens[r][c] ? 'font-bold' : '',
-                  props.showErrors && conflicts[r][c] ? 'bg-red-200' : '',
+                  props.showErrors && conflicts[r][c] ? 'bg-red-200 dark:bg-red-700' : '',
                   selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
-                    ? 'bg-blue-100'
+                    ? 'bg-blue-100 dark:bg-blue-700'
                     : '',
                 ]"
               >
@@ -159,21 +159,21 @@ onMounted(() => newGame());
       </div>
       <div class="flex flex-col items-center gap-4">
         <div class="flex flex-col gap-2">
-          <button class="p-2 bg-white border rounded w-12 h-12" @click="erase">消</button>
-          <button class="p-2 bg-white border rounded w-12 h-12" @click="undo">戻す</button>
-          <button class="p-2 bg-white border rounded w-12 h-12" @click="redo">やり直し</button>
+          <button class="p-2 bg-[var(--surface)] border border-[var(--border)] rounded w-12 h-12" @click="erase">消</button>
+          <button class="p-2 bg-[var(--surface)] border border-[var(--border)] rounded w-12 h-12" @click="undo">戻す</button>
+          <button class="p-2 bg-[var(--surface)] border border-[var(--border)] rounded w-12 h-12" @click="redo">やり直し</button>
         </div>
         <div class="grid grid-cols-3 gap-2">
           <button
             v-for="n in 9"
             :key="n"
-            class="p-2 bg-white border rounded w-12 h-12 flex items-center justify-center"
+            class="p-2 bg-[var(--surface)] border border-[var(--border)] rounded w-12 h-12 flex items-center justify-center"
             @click="input(n)"
           >
             {{ n }}
           </button>
         </div>
-        <button class="p-2 bg-blue-500 text-white border rounded w-full" @click="newGame">新規ゲーム</button>
+        <button class="p-2 bg-blue-500 dark:bg-blue-600 text-white border border-[var(--border)] rounded w-full" @click="newGame">新規ゲーム</button>
       </div>
     </div>
   </div>

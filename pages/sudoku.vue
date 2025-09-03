@@ -5,8 +5,8 @@
         <button
           v-for="d in difficulties"
           :key="d.value"
-          class="px-2 py-1 border rounded"
-          :class="d.value === difficulty ? 'bg-blue-500 text-white' : 'bg-white'"
+          class="px-2 py-1 border border-[var(--border)] rounded"
+          :class="d.value === difficulty ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-[var(--surface)]'"
           @click="difficulty = d.value"
         >
           {{ d.label }}
@@ -15,10 +15,10 @@
       <label class="flex items-center gap-1">
         <input type="checkbox" v-model="showErrors" /> エラーハイライト
       </label>
-      <button class="border p-1" @click="toggleTheme">テーマ切替</button>
+      <button class="border border-[var(--border)] p-1 bg-[var(--surface)]" @click="toggleTheme">テーマ切替</button>
       <div class="text-sm flex items-center gap-1">
         Seed: {{ seed }}
-        <button class="border px-1" @click="copySeed">コピー</button>
+        <button class="border border-[var(--border)] px-1 bg-[var(--surface)]" @click="copySeed">コピー</button>
       </div>
     </div>
     <SudokuBoard
@@ -51,7 +51,8 @@ function onNew(p: Puzzle) {
 
 function toggleTheme() {
   const root = document.documentElement;
-  root.classList.toggle('dark');
+  const theme = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
 }
 
 async function copySeed() {
