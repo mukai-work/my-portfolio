@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import type { Puzzle, Difficulty, Grid9 } from '~/core/types';
 import { generatePuzzle } from '~/core/generator';
 import { findConflicts, isMoveValid } from '~/core/validator';
@@ -18,6 +18,9 @@ const selected = ref<{ r: number; c: number } | null>(null);
 const undoStack = ref<{ r: number; c: number; prev: number; next: number }[]>([]);
 const redoStack = ref<{ r: number; c: number; prev: number; next: number }[]>([]);
 const conflicts = ref(findConflicts(grid.value));
+const isComplete = computed(() =>
+  grid.value.every((row) => row.every((cell) => cell !== 0))
+);
 
 async function newGame() {
   const p = await generatePuzzle(props.difficulty);
@@ -121,7 +124,7 @@ onMounted(() => newGame());
         class="relative"
         :style="{ width: 'min(92vw,560px)', height: 'min(92vw,560px)' }"
       >
-        <div class="grid grid-cols-9 grid-rows-9 w-full h-full">
+        <div class="grid grid-cols-9 grid-rows-9 w-full h-full border-[3px] border-[var(--fg)]">
           <template v-for="(row, r) in grid" :key="r">
             <button
               v-for="(cell, c) in row"
@@ -129,15 +132,13 @@ onMounted(() => newGame());
               @click="select(r, c)"
                 :class="[
                   'flex items-center justify-center select-none text-lg bg-[var(--surface)]',
-                  r === 0 ? 'border-t-2 border-t-[var(--fg)]' : '',
-                  c === 0 ? 'border-l-2 border-l-[var(--fg)]' : '',
                   (r + 1) % 3 === 0
-                    ? 'border-b-2 border-b-[var(--fg)]'
+                    ? 'border-b-[3px] border-b-[var(--fg)]'
                     : 'border-b border-b-[var(--border)]',
                   (c + 1) % 3 === 0
-                    ? 'border-r-2 border-r-[var(--fg)]'
+                    ? 'border-r-[3px] border-r-[var(--fg)]'
                     : 'border-r border-r-[var(--border)]',
-                  selected && Math.floor(selected.r / 3) === Math.floor(r / 3) && Math.floor(selected.c / 3) === Math.floor(c / 3)
+                  selected && (selected.r === r || selected.c === c)
                     ? 'bg-blue-50 dark:bg-blue-900'
                     : '',
                   selected?.r === r && selected?.c === c
@@ -153,6 +154,12 @@ onMounted(() => newGame());
                 {{ cell || '' }}
               </button>
             </template>
+        </div>
+        <div
+          v-if="isComplete"
+          class="absolute inset-0 flex items-center justify-center bg-black/20 text-4xl font-bold text-green-600"
+        >
+          Done!
         </div>
       </div>
       <div class="flex flex-col items-center gap-4">
