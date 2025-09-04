@@ -124,7 +124,7 @@ onMounted(() => newGame());
         class="relative"
         :style="{ width: 'min(92vw,560px)', height: 'min(92vw,560px)' }"
       >
-        <table class="w-full h-full border-[3px] border-[var(--fg)] border-collapse table-fixed">
+        <table class="w-full h-full border-[3px] border-[var(--muted)] border-collapse table-fixed">
           <tbody>
             <tr v-for="(row, r) in grid" :key="r">
               <td
