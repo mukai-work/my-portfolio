@@ -124,37 +124,45 @@ onMounted(() => newGame());
         class="relative"
         :style="{ width: 'min(92vw,560px)', height: 'min(92vw,560px)' }"
       >
-        <div class="grid grid-cols-9 grid-rows-9 w-full h-full border-[3px] border-[var(--fg)]">
-          <template v-for="(row, r) in grid" :key="r">
-            <button
-              v-for="(cell, c) in row"
-              :key="c"
-              @click="select(r, c)"
+        <table class="w-full h-full border-[3px] border-[var(--fg)] border-collapse table-fixed">
+          <tbody>
+            <tr v-for="(row, r) in grid" :key="r">
+              <td
+                v-for="(cell, c) in row"
+                :key="c"
                 :class="[
-                  'flex items-center justify-center select-none text-lg bg-[var(--surface)]',
+                  'p-0',
                   (r + 1) % 3 === 0
                     ? 'border-b-[3px] border-b-[var(--fg)]'
                     : 'border-b border-b-[var(--border)]',
                   (c + 1) % 3 === 0
                     ? 'border-r-[3px] border-r-[var(--fg)]'
                     : 'border-r border-r-[var(--border)]',
-                  selected && (selected.r === r || selected.c === c)
-                    ? 'bg-blue-50 dark:bg-blue-900'
-                    : '',
-                  selected?.r === r && selected?.c === c
-                    ? 'bg-blue-200 dark:bg-blue-700'
-                    : '',
-                  givens[r][c] ? 'font-bold' : '',
-                  props.showErrors && conflicts[r][c] ? 'bg-red-200 dark:bg-red-700' : '',
-                  selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
-                    ? 'bg-blue-100 dark:bg-blue-700'
-                    : '',
                 ]"
               >
-                {{ cell || '' }}
-              </button>
-            </template>
-        </div>
+                <button
+                  @click="select(r, c)"
+                  class="w-full h-full flex items-center justify-center select-none text-lg bg-[var(--surface)] border-none p-0"
+                  :class="[
+                    selected && (selected.r === r || selected.c === c)
+                      ? 'bg-blue-50 dark:bg-blue-900'
+                      : '',
+                    selected?.r === r && selected?.c === c
+                      ? 'bg-blue-200 dark:bg-blue-700'
+                      : '',
+                    givens[r][c] ? 'font-bold' : '',
+                    props.showErrors && conflicts[r][c] ? 'bg-red-200 dark:bg-red-700' : '',
+                    selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
+                      ? 'bg-blue-100 dark:bg-blue-700'
+                      : '',
+                  ]"
+                >
+                  {{ cell || '' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           v-if="isComplete"
           class="absolute inset-0 flex items-center justify-center bg-black/20 text-4xl font-bold text-green-600"
