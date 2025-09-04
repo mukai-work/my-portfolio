@@ -128,23 +128,21 @@ onMounted(() => newGame());
               :key="c"
               @click="select(r, c)"
                 :class="[
-                  'flex items-center justify-center select-none text-lg',
-                  ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
-                    ? 'bg-[var(--surface-2)]'
-                    : 'bg-[var(--surface)]'),
-                  r === 0 ? 'border-t-4 border-t-[var(--fg)]' : '',
-                  c === 0 ? 'border-l-4 border-l-[var(--fg)]' : '',
+                  'flex items-center justify-center select-none text-lg bg-[var(--surface)]',
+                  r === 0 ? 'border-t-2 border-t-[var(--fg)]' : '',
+                  c === 0 ? 'border-l-2 border-l-[var(--fg)]' : '',
                   (r + 1) % 3 === 0
-                    ? 'border-b-4 border-b-[var(--fg)]'
+                    ? 'border-b-2 border-b-[var(--fg)]'
                     : 'border-b border-b-[var(--border)]',
                   (c + 1) % 3 === 0
-                    ? 'border-r-4 border-r-[var(--fg)]'
+                    ? 'border-r-2 border-r-[var(--fg)]'
                     : 'border-r border-r-[var(--border)]',
+                  selected && Math.floor(selected.r / 3) === Math.floor(r / 3) && Math.floor(selected.c / 3) === Math.floor(c / 3)
+                    ? 'bg-blue-50 dark:bg-blue-900'
+                    : '',
                   selected?.r === r && selected?.c === c
-                    ? 'bg-yellow-200 dark:bg-yellow-600'
-                    : selected && (selected.r === r || selected.c === c)
-                      ? 'bg-yellow-100 dark:bg-yellow-700'
-                      : '',
+                    ? 'bg-blue-200 dark:bg-blue-700'
+                    : '',
                   givens[r][c] ? 'font-bold' : '',
                   props.showErrors && conflicts[r][c] ? 'bg-red-200 dark:bg-red-700' : '',
                   selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
