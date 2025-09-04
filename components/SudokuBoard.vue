@@ -2,7 +2,7 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import type { Puzzle, Difficulty, Grid9 } from '~/core/types';
 import { generatePuzzle } from '~/core/generator';
-import { findConflicts, isMoveValid } from '~/core/validator';
+import { findConflicts } from '~/core/validator';
 
 const props = defineProps<{ difficulty: Difficulty; showErrors: boolean }>();
 const emit = defineEmits<{ (e: 'new', puzzle: Puzzle): void }>();
@@ -51,7 +51,6 @@ function input(n: number) {
   if (!selected.value) return;
   const { r, c } = selected.value;
   if (givens.value[r][c]) return;
-  if (!isMoveValid(grid.value, r, c, n)) return;
   const prev = grid.value[r][c];
   grid.value[r][c] = n;
   undoStack.value.push({ r, c, prev, next: n });
@@ -151,9 +150,11 @@ onMounted(() => newGame());
                       ? 'bg-blue-200 dark:bg-blue-700'
                       : '',
                     givens[r][c] ? 'font-bold' : '',
-                    props.showErrors && conflicts[r][c] ? 'bg-red-200 dark:bg-red-700' : '',
                     selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
                       ? 'bg-blue-100 dark:bg-blue-700'
+                      : '',
+                    props.showErrors && conflicts[r][c]
+                      ? 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400'
                       : '',
                   ]"
                 >
