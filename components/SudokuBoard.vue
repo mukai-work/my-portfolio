@@ -132,14 +132,14 @@ onMounted(() => newGame());
                   ((Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0
                     ? 'bg-[var(--surface-2)]'
                     : 'bg-[var(--surface)]'),
-                  r % 3 === 0
-                    ? 'border-t-4 border-t-[var(--fg)]'
-                    : 'border-t border-t-[var(--border)]',
-                  c % 3 === 0
-                    ? 'border-l-4 border-l-[var(--fg)]'
-                    : 'border-l border-l-[var(--border)]',
-                  r === 8 ? 'border-b-4 border-b-[var(--fg)]' : '',
-                  c === 8 ? 'border-r-4 border-r-[var(--fg)]' : '',
+                  r === 0 ? 'border-t-4 border-t-[var(--fg)]' : '',
+                  c === 0 ? 'border-l-4 border-l-[var(--fg)]' : '',
+                  (r + 1) % 3 === 0
+                    ? 'border-b-4 border-b-[var(--fg)]'
+                    : 'border-b border-b-[var(--border)]',
+                  (c + 1) % 3 === 0
+                    ? 'border-r-4 border-r-[var(--fg)]'
+                    : 'border-r border-r-[var(--border)]',
                   selected?.r === r && selected?.c === c
                     ? 'bg-yellow-200 dark:bg-yellow-600'
                     : selected && (selected.r === r || selected.c === c)
