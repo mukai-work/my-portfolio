@@ -150,6 +150,9 @@ onMounted(() => newGame());
                       ? 'bg-blue-200 dark:bg-blue-700'
                       : '',
                     givens[r][c] ? 'font-bold' : '',
+                    !givens[r][c] && cell !== 0
+                      ? 'text-blue-700 dark:text-blue-400'
+                      : '',
                     selected && grid[selected.r][selected.c] !== 0 && grid[selected.r][selected.c] === cell
                       ? 'bg-blue-100 dark:bg-blue-700'
                       : '',
