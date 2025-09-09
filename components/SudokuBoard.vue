@@ -21,6 +21,15 @@ const conflicts = ref(findConflicts(grid.value));
 const isComplete = computed(() =>
   grid.value.every((row) => row.every((cell) => cell !== 0))
 );
+const numberCounts = computed(() => {
+  const counts = Array(10).fill(0);
+  for (const row of grid.value) {
+    for (const cell of row) {
+      if (cell !== 0) counts[cell]++;
+    }
+  }
+  return counts;
+});
 
 async function newGame() {
   const p = await generatePuzzle(props.difficulty);
@@ -52,6 +61,7 @@ function input(n: number) {
   const { r, c } = selected.value;
   if (givens.value[r][c]) return;
   const prev = grid.value[r][c];
+  if (prev !== n && numberCounts.value[n] >= 9) return;
   grid.value[r][c] = n;
   undoStack.value.push({ r, c, prev, next: n });
   redoStack.value = [];
@@ -182,6 +192,8 @@ onMounted(() => newGame());
             v-for="n in 9"
             :key="n"
             class="p-2 bg-[var(--surface)] border border-[var(--border)] rounded w-12 h-12 flex items-center justify-center"
+            :class="numberCounts[n] >= 9 ? 'opacity-50 cursor-not-allowed' : ''"
+            :disabled="numberCounts[n] >= 9"
             @click="input(n)"
           >
             {{ n }}
