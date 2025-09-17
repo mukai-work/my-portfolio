@@ -10,12 +10,9 @@ for (const [key, value] of Object.entries(FORCE_WASM_FLAGS)) {
 }
 
 async function main() {
-  const { createRequire } = await import('node:module');
-  const require = createRequire(import.meta.url);
-
-  let cliEntry;
+  let cliModule;
   try {
-    cliEntry = require.resolve('nuxt/dist/cli/index.mjs');
+    cliModule = await import('nuxt/cli');
   } catch (error) {
     console.error('Nuxt CLI を読み込めませんでした。nuxt が依存関係としてインストールされているか確認してください。');
     console.error(error);
@@ -24,14 +21,20 @@ async function main() {
   }
 
   try {
-    const cli = await import(cliEntry);
-    if (typeof cli.runMain !== 'function') {
+    const candidates = [
+      cliModule?.runMain,
+      cliModule?.default?.runMain,
+      cliModule?.default,
+    ];
+    const runMain = candidates.find((candidate) => typeof candidate === 'function');
+
+    if (!runMain) {
       console.error('Nuxt CLI エントリーポイントの形式が予期せぬものでした。');
       process.exit(1);
       return;
     }
 
-    const exitCode = await cli.runMain(process.argv.slice(2));
+    const exitCode = await runMain(process.argv.slice(2));
     if (typeof exitCode === 'number' && exitCode !== 0) {
       process.exit(exitCode);
     }
