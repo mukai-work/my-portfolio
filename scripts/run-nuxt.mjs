@@ -1,33 +1,45 @@
-import { spawn } from 'node:child_process';
+const FORCE_WASM_FLAGS = {
+  OXC_PARSER_FORCE_WASM: '1',
+  OXC_PARSER_ALLOW_WASM: 'true',
+};
 
-const args = process.argv.slice(2);
-
-if (args.length === 0) {
-  console.error('Missing Nuxt command.');
-  process.exit(1);
+for (const [key, value] of Object.entries(FORCE_WASM_FLAGS)) {
+  if (!process.env[key]) {
+    process.env[key] = value;
+  }
 }
 
-if (!process.env.OXC_PARSER_FORCE_WASM) {
-  process.env.OXC_PARSER_FORCE_WASM = '1';
-}
+async function main() {
+  const { createRequire } = await import('node:module');
+  const require = createRequire(import.meta.url);
 
-const command = process.platform === 'win32' ? 'nuxt.cmd' : 'nuxt';
-
-const child = spawn(command, args, {
-  stdio: 'inherit',
-  env: process.env,
-});
-
-child.on('exit', (code, signal) => {
-  if (signal) {
-    process.kill(process.pid, signal);
+  let cliEntry;
+  try {
+    cliEntry = require.resolve('nuxt/dist/cli/index.mjs');
+  } catch (error) {
+    console.error('Nuxt CLI を読み込めませんでした。nuxt が依存関係としてインストールされているか確認してください。');
+    console.error(error);
+    process.exit(1);
     return;
   }
 
-  process.exit(code ?? 0);
-});
+  try {
+    const cli = await import(cliEntry);
+    if (typeof cli.runMain !== 'function') {
+      console.error('Nuxt CLI エントリーポイントの形式が予期せぬものでした。');
+      process.exit(1);
+      return;
+    }
 
-child.on('error', (error) => {
-  console.error(error);
-  process.exit(1);
-});
+    const exitCode = await cli.runMain(process.argv.slice(2));
+    if (typeof exitCode === 'number' && exitCode !== 0) {
+      process.exit(exitCode);
+    }
+  } catch (error) {
+    console.error('Nuxt CLI 実行中にエラーが発生しました。');
+    console.error(error);
+    process.exit(1);
+  }
+}
+
+void main();
