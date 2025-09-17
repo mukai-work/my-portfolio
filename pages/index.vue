@@ -59,6 +59,12 @@
             class="reveal"
           />
           <LinkCard
+            to="/brief2plan"
+            title="Brief2Plan"
+            summary="要件整理からWBS・見積・PDF・GitHub連携まで"
+            class="reveal"
+          />
+          <LinkCard
             to="/sudoku"
             title="ナンプレ"
             summary="9x9数独ゲーム"
