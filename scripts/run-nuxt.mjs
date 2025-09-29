@@ -5,6 +5,11 @@ import { dirname, resolve as resolvePath } from 'node:path';
 const FORCE_WASM_FLAGS = {
   OXC_PARSER_FORCE_WASM: '1',
   OXC_PARSER_ALLOW_WASM: 'true',
+  OXC_PARSER_ENGINE: 'wasm',
+  OXC_PARSER_SKIP_NATIVE: 'true',
+  OXC_PARSER_DISABLE_NATIVE: '1',
+  NUXT_FORCE_OXC_PARSER_WASM: 'true',
+  NUXT_CLI_FORCE_WASM: 'true',
 };
 
 for (const [key, value] of Object.entries(FORCE_WASM_FLAGS)) {
