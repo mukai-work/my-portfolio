@@ -19,16 +19,8 @@ export default defineNuxtConfig({
     contactEmail: process.env.CONTACT_EMAIL || 'k.mukai.work@gmail.com',
     contactSender: process.env.CONTACT_SENDER || 'noreply@portfolio.dev',
     recaptchaSecret: process.env.RECAPTCHA_SECRET,
-    openaiApiKey: process.env.OPENAI_API_KEY,
-    githubToken: process.env.GITHUB_TOKEN,
-    jwtSecret: process.env.JWT_SECRET || 'brief2plan-dev-secret',
-    shareBaseUrl: process.env.SHARE_BASE_URL || 'http://localhost:3000',
-    pinoLevel: process.env.LOG_LEVEL || 'info',
     public: {
       recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY || '',
-      githubEnabled: Boolean(process.env.GITHUB_TOKEN),
-      shareBaseUrl: process.env.SHARE_BASE_URL || 'http://localhost:3000',
-      defaultRatePerHour: Number.parseInt(process.env.DEFAULT_RATE_PER_HOUR || '12000', 10),
       locales: ['ja', 'en']
     }
   },
