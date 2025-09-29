@@ -1,0 +1,11 @@
+// Prisma schema for local SQLite database used by the portfolio project.
+// Keep models minimal; extend as needed for future data requirements.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
